@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -66,7 +66,6 @@ namespace Neo.Plugins
                 ContractModel contractModel_roleManagement = new(NativeContract.RoleManagement.Hash, "RoleManagement", NativeContract.RoleManagement.Id, 0, NativeContract.RoleManagement.Nef.ToJson(), NativeContract.RoleManagement.Manifest.ToJson(), system.GenesisBlock.Timestamp, UInt256.Zero);
                 ContractModel contractModel_policy = new(NativeContract.Policy.Hash, "Policy", NativeContract.Policy.Id, 0, NativeContract.Policy.Nef.ToJson(), NativeContract.Policy.Manifest.ToJson(), system.GenesisBlock.Timestamp, UInt256.Zero);
                 ContractModel contractModel_gas = new(NativeContract.GAS.Hash, "GasToken", NativeContract.GAS.Id, 0, NativeContract.GAS.Nef.ToJson(), NativeContract.GAS.Manifest.ToJson(), system.GenesisBlock.Timestamp, UInt256.Zero);
-                ContractModel contractModel_neo = new(NativeContract.NEO.Hash, "NeoToken", NativeContract.NEO.Id, 0, NativeContract.NEO.Nef.ToJson(), NativeContract.NEO.Manifest.ToJson(), system.GenesisBlock.Timestamp, UInt256.Zero);
                 ContractModel contractModel_ledger = new(NativeContract.Ledger.Hash, "Ledger", NativeContract.Ledger.Id, 0, NativeContract.Ledger.Nef.ToJson(), NativeContract.Ledger.Manifest.ToJson(), system.GenesisBlock.Timestamp, UInt256.Zero);
                 ContractModel contractModel_cryptoLib = new(NativeContract.CryptoLib.Hash, "CryptoLib", NativeContract.CryptoLib.Id, 0, NativeContract.CryptoLib.Nef.ToJson(), NativeContract.CryptoLib.Manifest.ToJson(), system.GenesisBlock.Timestamp, UInt256.Zero);
                 ContractModel contractModel_stdLib = new(NativeContract.StdLib.Hash, "StdLib", NativeContract.StdLib.Id, 0, NativeContract.StdLib.Nef.ToJson(), NativeContract.StdLib.Manifest.ToJson(), system.GenesisBlock.Timestamp, UInt256.Zero);
@@ -75,20 +74,16 @@ namespace Neo.Plugins
                 await transaction.SaveAsync(contractModel_roleManagement);
                 await transaction.SaveAsync(contractModel_policy);
                 await transaction.SaveAsync(contractModel_gas);
-                await transaction.SaveAsync(contractModel_neo);
                 await transaction.SaveAsync(contractModel_ledger);
                 await transaction.SaveAsync(contractModel_cryptoLib);
                 await transaction.SaveAsync(contractModel_stdLib);
                 await transaction.SaveAsync(contractModel_contractManagement);
                 AssetModel assetModel_gas = new(NativeContract.GAS.Hash, system.GenesisBlock.Timestamp, "GasToken", 8, "GAS", 0, EnumAssetType.NEP17);
-                AssetModel assetModel_neo = new(NativeContract.NEO.Hash, system.GenesisBlock.Timestamp, "NeoToken", 0, "NEO", 0, EnumAssetType.NEP17);
                 await transaction.SaveAsync(assetModel_gas);
-                await transaction.SaveAsync(assetModel_neo);
                 VerifyContractModel verifyContractModel_oracle = new(NativeContract.Oracle.Hash, NativeContract.Oracle.Id, 0);
                 VerifyContractModel verifyContractModel_roleManagement = new(NativeContract.RoleManagement.Hash, NativeContract.RoleManagement.Id, 0);
                 VerifyContractModel verifyContractModel_policy = new(NativeContract.Policy.Hash, NativeContract.Policy.Id, 0);
                 VerifyContractModel verifyContractModel_gas = new(NativeContract.GAS.Hash, NativeContract.GAS.Id, 0);
-                VerifyContractModel verifyContractModel_neo = new(NativeContract.NEO.Hash, NativeContract.NEO.Id, 0);
                 VerifyContractModel verifyContractModel_ledger = new(NativeContract.Ledger.Hash, NativeContract.Ledger.Id, 0);
                 VerifyContractModel verifyContractModel_cryptoLib = new(NativeContract.CryptoLib.Hash, NativeContract.CryptoLib.Id, 0);
                 VerifyContractModel verifyContractModel_stdLib = new(NativeContract.StdLib.Hash, NativeContract.StdLib.Id, 0);
@@ -97,7 +92,6 @@ namespace Neo.Plugins
                 await transaction.SaveAsync(verifyContractModel_roleManagement);
                 await transaction.SaveAsync(verifyContractModel_policy);
                 await transaction.SaveAsync(verifyContractModel_gas);
-                await transaction.SaveAsync(verifyContractModel_neo);
                 await transaction.SaveAsync(verifyContractModel_ledger);
                 await transaction.SaveAsync(verifyContractModel_cryptoLib);
                 await transaction.SaveAsync(verifyContractModel_stdLib);

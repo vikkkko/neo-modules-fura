@@ -316,33 +316,34 @@ namespace Neo.Plugins
             {
                 transaction.SaveAsync(tms).Wait();
             }
-            //每隔一定的块更新committee表
-            if (block.Index % system.Settings.CommitteeMembersCount == 0)
-            {
-                Loger.Common(string.Format("blockindex:{0},更新committee", block.Index));
-                //先把上一批的重置了
-                List<CandidateModel> candidateModel_old = CandidateModel.GetByIsCommittee(true);
-                if (candidateModel_old.Count > 0)
-                {
-                    candidateModel_old = candidateModel_old.Select(c => { c.IsCommittee = false; return c; }).ToList();
-                    transaction.SaveAsync(candidateModel_old).Wait();
-                }
-                //更新新的一批次
-                ECPoint[] committees = Neo.SmartContract.Native.NeoToken.NEO.GetCommittee(snapshot);
-                CandidateModel[] candidateModels_new = committees.Select(c =>
-                {
-                    var hash = Contract.CreateSignatureContract(c).ScriptHash;
-                    var candidateModel = CandidateModel.Get(hash);
-                    if (candidateModel is null)
-                    {
-                        var votes = Neo.Plugins.VM.Helper.GetCandidateVotes(c, system, snapshot);
-                        candidateModel = new CandidateModel(hash, false, votes.ToString(), true);
-                    }
-                    candidateModel.IsCommittee = true;
-                    return candidateModel;
-                }).ToArray();
-                transaction.SaveAsync(candidateModels_new).Wait();
-            }
+
+            ////每隔一定的块更新committee表
+            //if (block.Index % system.Settings.CommitteeMembersCount == 0)
+            //{
+            //    Loger.Common(string.Format("blockindex:{0},更新committee", block.Index));
+            //    //先把上一批的重置了
+            //    List<CandidateModel> candidateModel_old = CandidateModel.GetByIsCommittee(true);
+            //    if (candidateModel_old.Count > 0)
+            //    {
+            //        candidateModel_old = candidateModel_old.Select(c => { c.IsCommittee = false; return c; }).ToList();
+            //        transaction.SaveAsync(candidateModel_old).Wait();
+            //    }
+            //    //更新新的一批次
+            //    ECPoint[] committees = Neo.SmartContract.Native.NeoToken.NEO.GetCommittee(snapshot);
+            //    CandidateModel[] candidateModels_new = committees.Select(c =>
+            //    {
+            //        var hash = Contract.CreateSignatureContract(c).ScriptHash;
+            //        var candidateModel = CandidateModel.Get(hash);
+            //        if (candidateModel is null)
+            //        {
+            //            var votes = Neo.Plugins.VM.Helper.GetCandidateVotes(c, system, snapshot);
+            //            candidateModel = new CandidateModel(hash, false, votes.ToString(), true);
+            //        }
+            //        candidateModel.IsCommittee = true;
+            //        return candidateModel;
+            //    }).ToArray();
+            //    transaction.SaveAsync(candidateModels_new).Wait();
+            //}
 
             //将此块的record标记为完成
             RecordCommitModel recordCommitModel = RecordCommitModel.Get(block.Index);

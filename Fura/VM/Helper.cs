@@ -157,57 +157,20 @@ namespace Neo.Plugins.VM
 
         public static BigInteger GetNeoBalanceOf(UInt160 user, NeoSystem system, DataCache snapshot)
         {
-            byte[] script;
-            using (ScriptBuilder sb = new ScriptBuilder())
-            {
-                sb.EmitDynamicCall(Neo.SmartContract.Native.NativeContract.NEO.Hash, "balanceOf", user);
-                script = sb.ToArray();
-            }
-
-            using (ApplicationEngine engine = ApplicationEngine.Run(script, snapshot, settings: system.Settings, gas: 50000000))
-            {
-                if (engine.State.HasFlag(VMState.FAULT))
-                {
-                    Console.WriteLine("GetNeoBalanceOf error");
-                    return 0;
-                }
-                return engine.ResultStack.Pop().GetInteger();
-            }
+            return 0;
         }
+
+
+
 
         public static BigInteger GetCandidateVotes(string candidate, NeoSystem system, DataCache snapshot)
         {
-            if (candidate == string.Empty || candidate is null) return 0;
-            ECPoint ecpoint = ECPoint.Parse(candidate, ECCurve.Secp256r1);
-            StorageKey key = new KeyBuilder(Neo.SmartContract.Native.NativeContract.NEO.Id, 33).Add(ecpoint);
-            try
-            {
-                CandidateState state = snapshot.GetAndChange(key)?.GetInteroperable<CandidateState>();
-                return state?.Votes ?? 0;
-            }
-            catch
-            {
-                DebugModel debugModel = new(string.Format("GetCandidateVotes----candidate: {0}", candidate));
-                debugModel.SaveAsync().Wait();
-                return 0;
-            }
-
+            return 0;
         }
 
         public static BigInteger GetCandidateVotes(ECPoint ecpoint, NeoSystem system, DataCache snapshot)
         {
-            StorageKey key = new KeyBuilder(Neo.SmartContract.Native.NativeContract.NEO.Id, 33).Add(ecpoint);
-            try
-            {
-                CandidateState state = snapshot.GetAndChange(key)?.GetInteroperable<CandidateState>();
-                return state?.Votes ?? 0;
-            }
-            catch
-            {
-                DebugModel debugModel = new(string.Format("GetCandidateVotes----candidate: {0}", ecpoint));
-                debugModel.SaveAsync().Wait();
-                return 0;
-            }
+            return 0;
         }
 
         /// <summary>

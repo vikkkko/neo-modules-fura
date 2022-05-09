@@ -96,7 +96,7 @@ namespace Neo.Plugins.Cache
             caches.Add(cacheNotification);
 
             cacheGasMintBurn = new CacheGasMintBurn();
-            caches.Add(cacheGasMintBurn);
+            //caches.Add(cacheGasMintBurn);
 
             cacheNep11Properties = new CacheNep11Properties();
             caches.Add(cacheNep11Properties);

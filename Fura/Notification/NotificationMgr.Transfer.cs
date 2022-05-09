@@ -17,12 +17,6 @@ namespace Neo.Plugins.Notification
             if (notificationModel.State.Values.Count() == 3)
             {
                 var t = ExecuteNep17TransferNotification(notificationModel, system, block, snapshot);
-                //如果是neo的转账，需要整一个vote的记录
-                if (notificationModel.ContractHash == NeoToken.NEO.Hash)
-                {
-                    UpdateVoteModelByTransfer(notificationModel.Txid, t.Item1, system, block, snapshot);
-                    UpdateVoteModelByTransfer(notificationModel.Txid, t.Item2, system, block, snapshot);
-                }
                 //gas的一些特殊处理，例如如果是gas的销毁转账，记录一个销毁记录
                 if (notificationModel.ContractHash == GasToken.GAS.Hash)
                 {

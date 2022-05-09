@@ -42,9 +42,9 @@ namespace Neo.Plugins
 
         public ScCallMgr()
         {
-            Register(Neo.SmartContract.Native.NativeContract.NEO.Hash,"vote", ExecuteScVoteCall);
-            Register(Neo.SmartContract.Native.NativeContract.NEO.Hash, "registerCandidate", ExecuteRegisterCandidate);
-            Register(Neo.SmartContract.Native.NativeContract.NEO.Hash, "unregisterCandidate", ExecuteUnRegisterCandidate);
+            //Register(Neo.SmartContract.Native.NativeContract.NEO.Hash,"vote", ExecuteScVoteCall);
+            //Register(Neo.SmartContract.Native.NativeContract.NEO.Hash, "registerCandidate", ExecuteRegisterCandidate);
+            //Register(Neo.SmartContract.Native.NativeContract.NEO.Hash, "unregisterCandidate", ExecuteUnRegisterCandidate);
         }
 
         public void Register(UInt160 contractHash,string method, Func<ScCallModel, NeoSystem, Block, DataCache, bool> entity)
